@@ -1,0 +1,1037 @@
+adapter:
+  grpc: "0.0.0.0:9091"
+  addr: "0.0.0.0:8080"
+
+  # THIS SHOULD NOT EXIST ON PROD!!!
+  mocks:
+    enabled: false
+    use: "PAY-5242Mock"
+    mock_servers:
+      pay_3909:
+        host: "http://mockoon.ps.bk6bbasndbx.com:29206/"
+        endpoints:
+          "/oauth/token": false
+      test_mock:
+        host: "https://dde4af51-bec5-481b-88ad-41e0838a9c14.mock.pstmn.io"
+        endpoints:
+          "/ms-pay/pos/payments/25816": false
+          "/ms-payout": false
+      PAY-5242:
+        host: "https://2df1ac10-e9cb-4080-b975-3b8901e991c2.mock.pstmn.io"
+        endpoints:
+          "/sou/xml_online.admin": false
+      oplati:
+        host: "https://7615714d-5558-4626-ad9c-8977be86ce24.mock.pstmn.io"
+        endpoints:
+          "/ms-payout": false
+      pay_1850:
+        host: "https://6fc05747-6387-4d61-8fb5-01e88729795d.mock.pstmn.io"
+        endpoints:
+          "/sou/xml_online.admin": false
+      pay_2667:
+        host: "https://1a9b3206-6317-4803-9229-3b27df063eb1.mock.pstmn.io"
+        endpoints:
+          "/ms-payout/payouts?provider": false
+      pay_2667_2:
+        host: "https://d1fea0bd-a6b7-43ba-82dc-006ef484bc6f.mock.pstmn.io"
+        endpoints:
+          "/ms-pay/pos/payments": false
+      pay_3249:
+        host: "https://f10f859e-bda1-4f28-8129-3fb279883f0d.mock.pstmn.io"
+        endpoints:
+          "/gateway-bepaid-by/transactions/payouts": false
+      pay_3852:
+        host: "https://d0e55d73-cb82-4d2c-a4f9-65491e553c8d.mock.pstmn.io"
+        endpoints:
+          "/gateway-bepaid-by/transactions/payouts": false
+      pay_4886:
+        host: "http://mockoon.ps.bk6bbasndbx.com:29200/"
+        endpoints:
+          "/gateway-bepaid-by/transactions/payouts": false
+      PAY-3909:
+        host: "https://d76b17b4-9fb1-4716-a64b-e53e4d95a998.mock.pstmn.io"
+        endpoints:
+          "/oauth/token": false
+      PAY-5242Mock:
+        host: "http://mockoon.ps.bk6bbasndbx.com:29333/"
+        endpoints:
+          "/sou/xml_online.admin": false
+
+  bepaid:
+    paymentAttemptsCount: 1
+    paymentTimeout: 1800
+    internalPaymentTimeout: 2100 # internal expiration time for payments, should be greater than timeout in payment system.
+    merchantId: 23252
+    secretKey: "f05ac053f0720eb33ef89aea823a919c384745f3599ded0b7cb395bb3fcd2617"
+    merchantIdPayouts: 23252
+    secretKeyPayouts: "f05ac053f0720eb33ef89aea823a919c384745f3599ded0b7cb395bb3fcd2617"
+    depositPaymentUrl: "https://api-b2bs-int.by0e87sndbx.com/checkout-bepaid-by/ctp/api/checkouts"
+    withdrawPaymentUrl: "https://api-b2bs-int.by0e87sndbx.com/gateway-bepaid-by/transactions/payouts"
+    paymentStateUrl: "https://api-b2bs-int.by0e87sndbx.com/checkout-bepaid-by/ctp/api/checkouts"
+    transactionStateUrl: "https://api-b2bs-int.by0e87sndbx.com/gateway-bepaid-by/v2/transactions/tracking_id"
+    notificationUrl: "https://api-b2bs-ext.by0e87sndbx.com/bepaid/"
+    paymentErrors:
+      recipient_credit_card:
+        number: [ "is invalid" ]
+    isTest: true
+    idempotentRequestsAllowed: true
+    redirect_urls:
+      success:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/success"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/success"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/success"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/deposit/success?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentSuccess"
+        mobile_android:
+          url: "fonbet.by://paymentSuccess"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/success"
+      pending:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/pending"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/pending"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/pending"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/payments/deposit/pending?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentPending"
+        mobile_android:
+          url: "fonbet.by://paymentPending"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/pending"
+      cancel:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/cancel"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/cancel"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/cancel"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/payments/deposit/cancel?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentCancelled"
+        mobile_android:
+          url: "fonbet.by://paymentCancelled"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/cancel"
+      fail:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/failed"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/failed"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/failed"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/deposit/failed?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentFailed"
+        mobile_android:
+          url: "fonbet.by://paymentFailed"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/failed"
+    payment_methods:
+      deposits:
+        - id: "BEPAID"
+          method: "by_bepaid"
+          ps: "bepaid"
+          target: "self"
+          paysystem_id: "621"
+          name: "Банковская карта"
+          short_name: "Банковская карта"
+          local_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+            ru_acc: "Банковскую карту"
+          local_short_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          minAmount: 2.0
+          maxAmount: 20000.0
+          logo: "/ContentCommon/payments/icons/web/by_web_bank_card_bePaid_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_bank_card_bePaid_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_bank_card_bePaid_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_bank_card_bePaid_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_bepaid_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_bank_card_bePaid_2.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_bepaid_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_bank_card_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_bepaid_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_bank_card_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+          instrumentPermissions:
+            canAdd: false
+            canDelete: true
+          amountBindingField: "instID"
+          fields:
+            - name: "instID"
+              dataType: "string"
+              type: "select"
+              instrumentType: "card"
+              captionLabel: "BANK_CARD_NUMBER"
+              optional: true
+              canDelete: true
+              isCard: true
+          
+          fieldsBySysId:
+            - sysIds: [ 22, 24 ]
+              fields:
+                - name: "instID"
+                  dataType: "bank_cards"
+                  type: "select"
+                  instrumentType: "card"
+                  captionLabel: "BANK_CARD_NUMBER"
+                  optional: true
+                  canDelete: true
+      
+      withdrawals:
+        - id: "BEPAID"
+          method: "by_bepaid"
+          ps: "bepaid"
+          paysystem_id: "622"
+          name: "Банковская карта"
+          short_name: "Банковская карта"
+          local_display_names:
+            en: "Bank card"
+            ru: "Банковская карта"
+          local_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+            ru_acc: "Банковскую карту"
+          local_short_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          minPayout: 5.0
+          maxPayout: 10000.0
+          logo: "/ContentCommon/payments/icons/web/by_web_bank_card_bePaid_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_bank_card_bePaid_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_bank_card_bePaid_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_bank_card_bePaid_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_bepaid_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_bank_card_bePaid_2.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_bepaid_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_bank_card_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_bepaid_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_bank_card_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_bePaid_2.png"
+          instrumentPermissions:
+            canAdd: false
+            canDelete: true
+          amountBindingField: "instID"
+          fields:
+            - name: "instID"
+              dataType: "string"
+              type: "select"
+              instrumentType: "card"
+              captionLabel: "BANK_CARD_NUMBER"
+              canDelete: true
+              sendReasonMessage: true
+              isCard: true
+              useAddInstrumentPs: true
+          
+          fieldsBySysId:
+            - sysIds: [ 22, 24 ]
+              fields:
+                - name: "instID"
+                  dataType: "bank_cards"
+                  type: "select"
+                  instrumentType: "card"
+                  captionLabel: "BANK_CARD_NUMBER"
+                  canDelete: true
+                  sendReasonMessage: true
+                  useAddInstrumentPs: true
+
+
+  oplati:
+    isTesting: true # На проде УБРАТЬ
+    payoutTestWallet: "BY91BLBB00000000000000007676" # на проде УБРАТЬ
+    provider: "fonbet"
+    regNum: "OPL000001718"
+    password: "fonbetBy29"
+    depositBaseUrl: "https://bpay-testcashdesk.lwo.by/ms-pay"
+    payoutBaseUrl: "https://oplati-msapi.lwo-dev.by/ms-payout"
+    payoutTokenBaseUrl: "https://oplati-msapi.lwo-dev.by"
+    payoutTokenRequestAuth: "Zm9uYmV0OmZvbmJldC1zZWNyZXQ"
+    failTimeoutSec: 1800
+    minAmount: 2.0
+    maxAmount: 20000.0
+    sysIdForPush: 18
+    secretKey: "f2cdacaabac42c8888ef3efdbac121f0"
+    paySystemMethod: "by_oplati"
+    payPushSystemMethod: "by_oplati_push"
+    currency: "BYN"
+    pushBoID: "359"
+    provider_fail_reasons:
+      2: "отказ от платежа. Пользователь не подтвердил платеж"
+      3: "недостаточно средств на кошельке пользователя"
+      4: "пользователь не подтвердил платеж в течение предопределенного системой Оплати отрезка времени - равносильно отказу от оплаты"
+      5: "техническая отмена"
+    redirect_urls:
+      success:
+        web:
+          url: "" # с десктопа мы не должны передавать URL для редиректа, так как оплата производится по QR-коду в приложении
+        web_new:
+          url: "" # с десктопа мы не должны передавать URL для редиректа, так как оплата производится по QR-коду в приложении
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/success"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/deposit/success?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentSuccess"
+        mobile_android:
+          url: "fonbet.by://paymentSuccess"
+        default:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+      pending:
+        web:
+          url: "" # с десктопа мы не должны передавать URL для редиректа, так как оплата производится по QR-коду в приложении
+        web_new:
+          url: "" # с десктопа мы не должны передавать URL для редиректа, так как оплата производится по QR-коду в приложении
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/pending"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/payments/deposit/pending?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentPending"
+        mobile_android:
+          url: "fonbet.by://paymentPending"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/pending"
+      fail:
+        web:
+          url: "" # с десктопа мы не должны передавать URL для редиректа, так как оплата производится по QR-коду в приложении
+        web_new:
+          url: "" # с десктопа мы не должны передавать URL для редиректа, так как оплата производится по QR-коду в приложении
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/failed"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/deposit/failed?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentFailed"
+        mobile_android:
+          url: "fonbet.by://paymentFailed"
+        default:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+    payment_methods:
+      deposits:
+        - id: "OPLATI"
+          method: "by_oplati"
+          ps: "oplati"
+          target: "self"
+          paysystem_id: "359" # BY_OPLATI_DEPOSIT
+          name: "Оплати"
+          short_name: "Оплати"
+          local_name:
+            en: "Oplati"
+            ru: "Оплати"
+          local_short_name:
+            en: "Oplati"
+            ru: "Оплати"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          minAmount: 2.0
+          maxAmount: 20000.0
+          oneClickReplenishment: true
+          webViewType: "external"
+          topNotices: [ "OPLATI_DEPOSIT_INFO" ]
+          logo: "/ContentCommon/payments/icons/web/by_web_oplati_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_oplati_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_oplati_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_oplati_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_oplati_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_oplati_1.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_oplati_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_oplati_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_oplati_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_oplati_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+          qrResult:
+            enabled: true
+            messageLabels: [ "OPLATI_QR_NOTICE" ]
+
+      withdrawals:
+        - id: "OPLATI"
+          method: "by_oplati"
+          ps: "oplati"
+          paysystem_id: "360" # BY_OPLATI_WITHDRAW
+          name: "Оплати"
+          short_name: "Оплати"
+          local_display_names:
+            en: "Oplati"
+            ru: "Оплати"
+          local_name:
+            en: "Oplati"
+            ru: "Оплати"
+          local_short_name:
+            en: "Oplati"
+            ru: "Оплати"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          minPayout: 5.0
+          maxPayout: 10000.0
+          logo: "/ContentCommon/payments/icons/web/by_web_oplati_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_oplati_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_oplati_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_oplati_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_oplati_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_oplati_1.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_oplati_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_oplati_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_oplati_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_oplati_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_oplati_1.png"
+          amountBindingField: "instID"
+          fields:
+            - name: "instID"
+              dataType: "string"
+              type: "select"
+              instrumentType: "wallet"
+              captionLabel: "WALLET_NUMBER"
+
+  ipay:
+    xmlFormKey: "xml"
+    secret: "mkhu6576csvnTTs"
+    api_deposit: "https://stand.besmart.by/sou/xml_online.admin"
+    api_payout: "https://stand.besmart.by/sou/xml_online.admin"
+    terminal_id: "Bisonbc_payment"
+    redirect_urls:
+      success:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/success"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/success"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/success"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/deposit/success?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentSuccess"
+        mobile_android:
+          url: "fonbet.by://paymentSuccess"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/success"
+      pending:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/pending"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/pending"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/pending"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/payments/deposit/pending?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentPending"
+        mobile_android:
+          url: "fonbet.by://paymentPending"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/pending"
+      fail:
+        web:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/failed"
+        web_new:
+          url: "https://by0e87sndbx.com/account/payments/deposit/failed"
+        mobile_web:
+          url: "https://www.by0e87sndbx.com/mobile/profile/deposit/"
+        mobile_web_new:
+          url: "https://by0e87sndbx.com/account/deposit/failed"
+        mobile_web_twa:
+          url: "https://by0e87sndbx.com/account/deposit/failed?app=1"
+        mobile_ios:
+          url: "fonbet.by://paymentFailed"
+        mobile_android:
+          url: "fonbet.by://paymentFailed"
+        default:
+          url: "https://www.by0e87sndbx.com/account/payments/deposit/failed"
+    method_to_types:
+      by_ipay: [ "MS" ]
+      by_qiwi: [ "CASHOSMP" ]
+      by_webmoney: [ "WM", "WMID" ]
+      by_erip: [ "CHIP", "CASH", "CASHIN", "ECASH", "PHONE", "ACCOUNT", "BELQI", "IPAY" ]
+    skks_terminal_id_setting_rules: # используется для переопределения значения SKKSTerminalId, который мы отправляем в СА
+      21: # данное значение будет установлено в качестве SKKSTerminalId, если соблюдаются условия ниже
+        method: "by_ipay"
+        service_no: 4
+    payment_methods:
+      deposits:
+        - id: "IPAY"
+          method: "by_ipay"
+          ps: "ipay"
+          target: "self"
+          paysystem_id: "82" # BY_IPAY_DEPOSIT
+          name: "Банковская карта"
+          short_name: "Банковская карта"
+          local_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+            ru_acc: "Банковскую карту"
+          local_short_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          minAmount: 2.0
+          maxAmount: 20000.0
+          logo: "/ContentCommon/payments/icons/web/by_web_bank_card_iPay_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_bank_card_iPay_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_bank_card_iPay_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_bank_card_iPay_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_ipay_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_bank_card_iPay_2.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_ipay_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_ipay_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_ipay_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_ipay_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+          instruction:
+            title: "USER_INSTRUCTION_TITLE"
+            content: "USER_INSTRUCTION_MONETIX_CASH_ON_DELIVERY"
+          instrumentPermissions:
+            canAdd: false
+            canDelete: true
+          amountBindingField: "instID"
+          fields:
+            - name: "instID"
+              dataType: "string"
+              type: "select"
+              instrumentType: "card"
+              captionLabel: "BANK_CARD_NUMBER"
+              optional: true
+              canDelete: true
+              isCard: true
+          
+          fieldsBySysId:
+            - sysIds: [ 22, 24 ]
+              fields:
+                - name: "instID"
+                  dataType: "bank_cards"
+                  type: "select"
+                  instrumentType: "card"
+                  captionLabel: "BANK_CARD_NUMBER"
+                  optional: true
+                  canDelete: true
+
+        - id: "IPAY_ERIP"
+          ps: "ipay"
+          method: "by_erip"
+          paysystem_id: "850"
+          minAmount: 2
+          maxAmount: 11000000000.0
+          target: "self"
+          logo: "/ContentCommon/payments/icons/web/by_web_raschet_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_raschet_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_raschet_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_raschet_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_raschet_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_raschet_2.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_raschet_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_raschet_2.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_raschet_2.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_raschet_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_raschet_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_raschet_2.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_raschet_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_raschet_2.png"
+          bottomNotices:
+            - IPAY_ERIP_DEPOSIT_INFO
+          name: "Система «Расчет»"
+          local_name:
+            en: "«Raschet» Payment system"
+            ru: "Система «Расчет»"
+          removeFormFields: [ "amount", "method", "ps" ]
+          overrideAction: true
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+
+        - id: "IPAY_QIWI"
+          ps: "ipay"
+          method: "by_qiwi"
+          paysystem_id: "211" # BY_QIWI_DEPOSIT
+          maxAmount: 11000000000.0
+          target: "self"
+          logo: "/ContentCommon/payments/icons/web/by_web_qiwi_locale_ru_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_qiwi_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_qiwi_locale_ru_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_qiwi_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_qiwi_1.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_qiwi_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_qiwi_1.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_qiwi_1.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_qiwi_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_qiwi_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_qiwi_1.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_qiwi_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_qiwi_1.png"
+          bottomNotices:
+            - IPAY_QIWI_DEPOSIT_INFO
+          name: "QIWI"
+          removeFormFields: [ "amount", "method", "ps" ]
+          overrideAction: true
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+
+        - id: "IPAY_WEBMONEY"
+          ps: "ipay"
+          method: "by_webmoney"
+          paysystem_id: "221" # BY_WEBMONEY_DEPOSIT
+          maxAmount: 11000000000.0
+          target: "self"
+          logo: "/ContentCommon/payments/icons/web/by_web_webmoney_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_webmoney_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_webmoney_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_webmoney_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_web_money_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_webmoney_1.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_web_money_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_webmoney_1.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_webmoney_1.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_web_money_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_web_money_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_webmoney_1.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_web_money_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_webmoney_1.png"
+          topNotices:
+            - IPAY_WM_DEPOSIT_INFO
+          name: "WebMoney"
+          webViewTypes:
+            "4": "external"
+            "5": "external"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          removeFormFields: [ "amount" ]
+          skipAmount: true
+          staticForm:
+            code: 301
+            result: "error"
+            message: "Follow url"
+            errorId: "not-an-error-301"
+            location: "https://wmtransfer.by/pay.asp?n=4749341"
+          fields:
+            - name: "submitButton"
+              type: "submit"
+              caption: "Deposit"
+              captions:
+                en: "Deposit"
+                ru: "Пополнить"
+              isNotSubmittable: true
+
+      withdrawals:
+        - id: "IPAY"
+          method: "by_ipay"
+          ps: "ipay"
+          paysystem_id: "83" # BY_IPAY_WITHDRAW
+          name: "Банковская карта"
+          short_name: "Банковская карта"
+          local_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+            ru_acc: "Банковскую карту"
+          local_short_name:
+            en: "Bank card"
+            ru: "Банковская карта"
+          local_display_names:
+            en: "Bank card"
+            ru: "Банковская карта"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          minPayout: 6.0
+          maxPayout: 10000.0
+          logo: "/ContentCommon/payments/icons/web/by_web_bank_card_iPay_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_bank_card_iPay_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_bank_card_iPay_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_bank_card_iPay_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_ipay_1.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_bank_card_iPay_2.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_ipay_1.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_ipay_1.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_ipay_1.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_ipay_1.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_bank_card_iPay_2.png"
+          instruction:
+            title: "USER_INSTRUCTION_TITLE"
+            content: "USER_INSTRUCTION_MONETIX_CASH_ON_DELIVERY"
+          instrumentPermissions:
+            canAdd: false
+            canDelete: true
+          amountBindingField: "instID"
+          fields:
+            - name: "instID"
+              dataType: "string"
+              type: "select"
+              instrumentType: "card"
+              captionLabel: "BANK_CARD_NUMBER"
+              canDelete: true
+              sendReasonMessage: true
+              isCard: true
+          
+          fieldsBySysId:
+            - sysIds: [ 22, 24 ]
+              fields:
+                - name: "instID"
+                  dataType: "bank_cards"
+                  type: "select"
+                  instrumentType: "card"
+                  captionLabel: "BANK_CARD_NUMBER"
+                  canDelete: true
+                  sendReasonMessage: true
+
+  wire:
+    payment_methods:
+      withdrawals:
+        - id: "WIRE"
+          method: "by_wire"
+          ps: "wire"
+          paysystem_id: "85" # BY_WIRE_WITHDRAW
+          alwaysShow: true
+          minPayout: 100.0
+          maxPayout: 10000.0
+          name: "Банковский счет"
+          short_name: "Банковский счет"
+          local_display_names:
+            en: "Direct wire transfer"
+            ru: "Банковский счет"
+          local_name:
+            en: "Direct wire transfer"
+            ru: "Банковский счет"
+          local_short_name:
+            en: "Direct wire transfer"
+            ru: "Банковский счет"
+          commision: "0%"
+          commission_detailed:
+            - type: "percent"
+              amount: 0.0
+          logo: "/ContentCommon/payments/icons/web/by_web_bank_transfer_1.svg"
+          captionLogo: "/ContentCommon/payments/icons/web/by_web_bank_transfer_headline_1.svg"
+          newCaptionLogo: "/ContentCommon/payments/icons/new/by_NEW_bank_transfer_headline_1.svg"
+          logos:
+            "1": "/ContentCommon/payments/icons/web/by_web_bank_transfer_1.svg"
+            "21": "/ContentCommon/payments/icons/new/by_NEW_bank_transfer_2.svg"
+            "2": "/ContentCommon/payments/icons/mobweb/by_mobileweb_bank_transfer_1.svg"
+            "22": "/ContentCommon/payments/icons/new/by_NEW_bank_transfer_2.svg"
+            "3": "/ContentCommon/payments/icons/mobile/by_mobile_bank_transfer_1.png"
+            "4": "/ContentCommon/payments/icons/mobile/by_mobile_bank_transfer_1.png"
+            "4_new": "/ContentCommon/payments/icons/new/by_NEWapps_bank_transfer_2.png"
+            "24": "/ContentCommon/payments/icons/new/by_NEW_bank_transfer_2.svg"
+            "5": "/ContentCommon/payments/icons/mobile/by_mobile_bank_transfer_1.png"
+            "5_new": "/ContentCommon/payments/icons/new/by_NEWapps_bank_transfer_2.png"
+            "10": "/ContentCommon/payments/icons/mobile/by_mobile_bank_transfer_1.png"
+          banks:
+            ABIGBY25:
+              fullName: Открытое акционерное общество "Небанковская кредитно-финансовая организация "Белинкасгрупп"
+              shortName: НКФО Белинкасгрупп
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: https://belincasgroup.by/
+            ABLTBY22:
+              fullName: Закрытое акционерное общество "АБСОЛЮТБАНК"
+              shortName: АБСОЛЮТБАНК
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.absolutbank.by/
+            AEBKBY2X:
+              fullName: Закрытое акционерное общество "БТА Банк"
+              shortName: БТА Банк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.btabank.by/
+            AKBBBY2X:
+              fullName: Открытое акционерное общество "Сберегательный банк "Беларусбанк"
+              shortName: АСБ Беларусбанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.belarusbank.by/
+            ALFABY2X:
+              fullName: Закрытое акционерное общество "Альфа-Банк"
+              shortName: Альфа-Банк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.alfabank.by/
+            BAPBBY2X:
+              fullName: Открытое акционерное общество "Белагропромбанк"
+              shortName: Белагропромбанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.belapb.by/
+            BBTKBY2X:
+              fullName: Закрытое акционерное общество "Банк торговый капитал"
+              shortName: ТК Банк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.tcbank.by/
+            BELBBY2X:
+              fullName: Открытое акционерное общество "Белвнешэкономбанк"
+              shortName: Банк БелВЭБ
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: https://www.belveb.by/
+            BLBBBY2X:
+              fullName: Открытое акционерное общество "Белорусский банк развития и реконструкции "Белинвестбанк"
+              shortName: Белинвестбанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.belinvestbank.by/
+            BLNBBY2X:
+              fullName: Открытое акционерное общество "Белорусский народный банк"
+              shortName: БНБ-Банк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.bnb.by/
+            BPSBBY2X:
+              fullName: Открытое акционерное общество "Сбер Банк"
+              shortName: Сбер Банк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.bps-sberbank.by/
+            CASHBY25:
+              fullName: Закрытое акционерное общество "Небанковская кредитно-финансовая организация "ИНКАСС.ЭКСПЕРТ"
+              shortName: НКФО ИНКАСС.ЭКСПЕРТ
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.incass-expert.by/
+            GTBNBY22:
+              fullName: Франсабанк Открытое акционерное общество
+              shortName: Франсабанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.fransabank.by/
+            IRJSBY22:
+              fullName: Открытое акционерное общество "СтатусБанк"
+              shortName: СтатусБанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.stbank.by/
+            MMBNBY22:
+              fullName: Открытое акционерное общество "Банк Дабрабыт"
+              shortName: Банк Дабрабыт
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: https://bankdabrabyt.by/
+            MTBKBY22:
+              fullName: Закрытое акционерное общество "МТБанк"
+              shortName: МТБанк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: https://www.mtbank.by/
+            OLMPBY2X:
+              fullName: Cовместное белорусско-российское oткрытое акционерное общество "Белгазпромбанк"
+              shortName: Белгазпромбанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.belgazprombank.by/
+            PJCBBY2X:
+              fullName: Приорбанк Открытое акционерное общество
+              shortName: Приорбанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.priorbank.by/
+            POISBY2X:
+              fullName: Открытое акционерное общество "Паритетбанк"
+              shortName: Паритетбанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.paritetbank.by/
+            REDJBY22:
+              fullName: Закрытое акционерное общество "Банк роста и развития бизнеса"
+              shortName: РРБ-Банк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.rrb.by/
+            RSHNBY2X:
+              fullName: Закрытое акционерное общество "Банк "Решение"
+              shortName: Банк Решение
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: https://rbank.by/
+            SLANBY22:
+              fullName: Закрытое акционерное общество Банк ВТБ (Беларусь)
+              shortName: Банк ВТБ (Беларусь)
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.vtb-bank.by
+            TECNBY22:
+              fullName: Открытое акционерное общество "Технобанк"
+              shortName: Технобанк
+              entity: ОАО
+              location: Г.МИНСК, РБ
+              website: http://www.tb.by/
+            UNBSBY2X:
+              fullName: Закрытое акционерное общество "Белорусско-Швейцарский Банк "БСБ Банк"
+              shortName: БСБ Банк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.bsb.by/
+            ZEPTBY2X:
+              fullName: Закрытое акционерное общество "Цептер Банк"
+              shortName: Цептер Банк
+              entity: ЗАО
+              location: Г.МИНСК, РБ
+              website: http://www.zepterbank.by/
+          fields:
+            - name: "fullName"
+              dataType: "string"
+              type: "text"
+              captionLabel: "FULL_NAME"
+              readOnly: true
+              nonEditableInput: true
+
+            - name: "accountName"
+              dataType: "string"
+              type: "text"
+              captionLabel: "ACCOUNT_NUMBER"
+              validation:
+                regex: "^[a-zA-Z0-9]{28}$"
+                errorMessage:
+                  ru: "Номер счета должен содержать только латинские буквы и цифры и иметь длину в 28 символов"
+                  en: "Account number must contain only latin characters and numbers and must be of 28 characters length"
+
+            - name: "transitAccount"
+              dataType: "string"
+              type: "text"
+              caption: "Транзитный счет (если есть)"
+              captions:
+                ru: "Транзитный счет (если есть)"
+                en: "Transit account number (if exists)"
+              optional: true
+              validation:
+                regex: "(^[a-zA-Z0-9]{28}$|^$)"
+                errorMessage:
+                  ru: "Номер транзитного счета должен содержать только латинские буквы и цифры и иметь длину в 28 символов"
+                  en: "Transit account number must contain only latin characters and numbers and must be of 28 characters length"
+
+            - name: "bik"
+              dataType: "string"
+              type: "select"
+              captionLabel: "BANK_NAME"
+              validationWithCorrespondFieldMatch:
+                secondField: "accountName"
+                regex: "^(?P<match>.{4}).+$"
+                secondFieldRegex: "^.{4}(?P<match>.{4}).+$"
+                errorMessageLabel: "BIK_ACCOUNT_NUMBER_MISMATCH"
+              values:
+                - value: "ABIGBY25"
+                  text: "НКФО \"Белинкасгрупп\""
+                - value: "ABLTBY22"
+                  text: "АБСОЛЮТБАНК"
+                - value: "AEBKBY2X"
+                  text: "БТА Банк"
+                - value: "AKBBBY2X"
+                  text: "АСБ Беларусбанк"
+                - value: "ALFABY2X"
+                  text: "Альфа-Банк"
+                - value: "BAPBBY2X"
+                  text: "Белагропромбанк"
+                - value: "BBTKBY2X"
+                  text: "ТК Банк"
+                - value: "BELBBY2X"
+                  text: "Банк БелВЭБ"
+                - value: "BLBBBY2X"
+                  text: "Белинвестбанк"
+                - value: "BLNBBY2X"
+                  text: "БНБ-Банк"
+                - value: "BPSBBY2X"
+                  text: "Сбер Банк"
+                - value: "CASHBY25"
+                  text: "НКФО \"ИНКАСС.ЭКСПЕРТ\""
+                - value: "GTBNBY22"
+                  text: "Франсабанк"
+                - value: "IRJSBY22"
+                  text: "СтатусБанк"
+                - value: "MMBNBY22"
+                  text: "Банк Дабрабыт"
+                - value: "MTBKBY22"
+                  text: "МТБанк"
+                - value: "OLMPBY2X"
+                  text: "Белгазпромбанк"
+                - value: "PJCBBY2X"
+                  text: "Приорбанк"
+                - value: "POISBY2X"
+                  text: "Паритетбанк"
+                - value: "REDJBY22"
+                  text: "РРБ-Банк"
+                - value: "RSHNBY2X"
+                  text: "Банк \"Решение\""
+                - value: "SLANBY22"
+                  text: "Банк ВТБ (Беларусь)"
+                - value: "TECNBY22"
+                  text: "Технобанк"
+                - value: "UNBSBY2X"
+                  text: "БСБ Банк"
+                - value: "ZEPTBY2X"
+                  text: "Цептер Банк"
+
+# services should use *this* section to connect to (discover) other services
+servicemap:
+  processor:
+    proc01: "10.206.104.4:9098"
